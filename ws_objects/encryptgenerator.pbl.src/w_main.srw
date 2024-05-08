@@ -2,6 +2,16 @@
 forward
 global type w_main from window
 end type
+type cb_7 from commandbutton within w_main
+end type
+type cb_6 from commandbutton within w_main
+end type
+type cb_5 from commandbutton within w_main
+end type
+type cb_4 from commandbutton within w_main
+end type
+type cb_3 from commandbutton within w_main
+end type
 type cb_2 from commandbutton within w_main
 end type
 type cb_1 from commandbutton within w_main
@@ -65,7 +75,7 @@ end type
 end forward
 
 global type w_main from window
-integer width = 2592
+integer width = 3223
 integer height = 1728
 boolean titlebar = true
 string title = "EncryptGenerator"
@@ -74,6 +84,11 @@ boolean minbox = true
 boolean maxbox = true
 string icon = "AppIcon!"
 boolean center = true
+cb_7 cb_7
+cb_6 cb_6
+cb_5 cb_5
+cb_4 cb_4
+cb_3 cb_3
 cb_2 cb_2
 cb_1 cb_1
 cb_decrypt cb_decrypt
@@ -113,6 +128,7 @@ end prototypes
 
 type variables
 n_cst_security in_seg 
+n_cst_key_generator in_gen
 end variables
 
 forward prototypes
@@ -160,6 +176,11 @@ RETURN lb_result
 end function
 
 on w_main.create
+this.cb_7=create cb_7
+this.cb_6=create cb_6
+this.cb_5=create cb_5
+this.cb_4=create cb_4
+this.cb_3=create cb_3
 this.cb_2=create cb_2
 this.cb_1=create cb_1
 this.cb_decrypt=create cb_decrypt
@@ -190,7 +211,12 @@ this.st_platform=create st_platform
 this.gb_json=create gb_json
 this.gb_master=create gb_master
 this.r_2=create r_2
-this.Control[]={this.cb_2,&
+this.Control[]={this.cb_7,&
+this.cb_6,&
+this.cb_5,&
+this.cb_4,&
+this.cb_3,&
+this.cb_2,&
 this.cb_1,&
 this.cb_decrypt,&
 this.cb_encrypt,&
@@ -223,6 +249,11 @@ this.r_2}
 end on
 
 on w_main.destroy
+destroy(this.cb_7)
+destroy(this.cb_6)
+destroy(this.cb_5)
+destroy(this.cb_4)
+destroy(this.cb_3)
 destroy(this.cb_2)
 destroy(this.cb_1)
 destroy(this.cb_decrypt)
@@ -258,18 +289,137 @@ end on
 event open;wf_version(st_myversion, st_platform)
 
 in_seg = Create n_cst_security
+in_gen = Create n_cst_key_generator
 
 
 
 end event
 
 event closequery;destroy in_seg
+destroy in_gen
+end event
+
+type cb_7 from commandbutton within w_main
+integer x = 1175
+integer y = 520
+integer width = 398
+integer height = 100
+integer taborder = 50
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string pointer = "Hyperlink!"
+string text = "Generar Vector"
+end type
+
+event clicked;sle_master_iv.text = ""
+
+in_gen.of_total_caracteres(16)
+
+sle_master_iv.text = in_gen.of_generar()
+
+
+end event
+
+type cb_6 from commandbutton within w_main
+integer x = 1175
+integer y = 408
+integer width = 398
+integer height = 100
+integer taborder = 40
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string pointer = "Hyperlink!"
+string text = "Generar Clave"
+end type
+
+event clicked;sle_master_key.text = ""
+
+in_gen.of_total_caracteres(16)
+
+sle_master_key.text = in_gen.of_generar()
+end event
+
+type cb_5 from commandbutton within w_main
+integer x = 2743
+integer y = 520
+integer width = 398
+integer height = 100
+integer taborder = 40
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string pointer = "Hyperlink!"
+string text = "Generar Vector"
+end type
+
+event clicked;sle_json_iv.text = ""
+
+in_gen.of_total_caracteres(16)
+
+sle_json_iv.text = in_gen.of_generar()
+end event
+
+type cb_4 from commandbutton within w_main
+integer x = 2743
+integer y = 408
+integer width = 398
+integer height = 100
+integer taborder = 30
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string pointer = "Hyperlink!"
+string text = "Generar Clave"
+end type
+
+event clicked;sle_json_key.text = ""
+
+in_gen.of_total_caracteres(16)
+
+sle_json_key.text = in_gen.of_generar()
+
+
+end event
+
+type cb_3 from commandbutton within w_main
+integer x = 2743
+integer y = 1092
+integer width = 398
+integer height = 100
+integer taborder = 40
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string pointer = "Hyperlink!"
+string text = "Generar Clave"
+end type
+
+event clicked;sle_decrypt.text = ""
+sle_decrypt.text = in_gen.of_generar()
+
 end event
 
 type cb_2 from commandbutton within w_main
-integer x = 2199
+integer x = 2743
 integer y = 688
-integer width = 233
+integer width = 398
 integer height = 100
 integer taborder = 20
 integer textsize = -8
@@ -283,14 +433,15 @@ string text = "Limpiar"
 end type
 
 event clicked;sle_json.text = ""
-sle_json_key.text =""
-sle_json_iv.text =""
+sle_token.text =""
+sle_decrypt.text =""
+sle_encrypt.text =""
 end event
 
 type cb_1 from commandbutton within w_main
-integer x = 2203
+integer x = 2743
 integer y = 1204
-integer width = 233
+integer width = 398
 integer height = 100
 integer taborder = 40
 integer textsize = -8
@@ -303,11 +454,16 @@ string pointer = "Hyperlink!"
 string text = "copiar"
 end type
 
-event clicked;clipboard(trim(sle_encrypt.text))
+event clicked;//Copiamos el Valor Encriptado. Si no se ha encriptado copiamos el Valor sin encriptar. (Para poder copiar claves generadas sin encriptar).
+If trim(sle_encrypt.text) = "" Then
+	clipboard(trim(sle_decrypt.text))
+Else	
+	clipboard(trim(sle_encrypt.text))
+End IF
 end event
 
 type cb_decrypt from commandbutton within w_main
-integer x = 1243
+integer x = 1586
 integer y = 1328
 integer width = 398
 integer height = 100
@@ -336,7 +492,7 @@ sle_decrypt.text = ls_Decrypted
 end event
 
 type cb_encrypt from commandbutton within w_main
-integer x = 827
+integer x = 1175
 integer y = 1328
 integer width = 398
 integer height = 100
@@ -384,7 +540,7 @@ end type
 type sle_encrypt from singlelineedit within w_main
 integer x = 361
 integer y = 1212
-integer width = 1824
+integer width = 2350
 integer height = 84
 integer taborder = 40
 integer textsize = -8
@@ -414,7 +570,7 @@ end type
 type sle_decrypt from singlelineedit within w_main
 integer x = 361
 integer y = 1096
-integer width = 1824
+integer width = 2350
 integer height = 84
 integer taborder = 30
 integer textsize = -8
@@ -426,9 +582,9 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type sle_master_key from singlelineedit within w_main
-integer x = 667
-integer y = 408
-integer width = 425
+integer x = 576
+integer y = 412
+integer width = 585
 integer height = 84
 integer taborder = 10
 integer textsize = -8
@@ -442,9 +598,9 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type st_master_key from statictext within w_main
-integer x = 512
-integer y = 412
-integer width = 142
+integer x = 402
+integer y = 416
+integer width = 155
 integer height = 64
 integer textsize = -10
 integer weight = 400
@@ -454,13 +610,14 @@ fontfamily fontfamily = swiss!
 string facename = "Tahoma"
 long textcolor = 33554432
 long backcolor = 553648127
-string text = "Key"
+string text = "Clave"
+alignment alignment = Right!
 boolean focusrectangle = false
 end type
 
 type st_master_iv from statictext within w_main
-integer x = 512
-integer y = 508
+integer x = 402
+integer y = 528
 integer width = 142
 integer height = 64
 integer textsize = -10
@@ -472,13 +629,14 @@ string facename = "Tahoma"
 long textcolor = 33554432
 long backcolor = 553648127
 string text = "IV"
+alignment alignment = Right!
 boolean focusrectangle = false
 end type
 
 type sle_master_iv from singlelineedit within w_main
-integer x = 667
-integer y = 504
-integer width = 425
+integer x = 576
+integer y = 524
+integer width = 582
 integer height = 84
 integer taborder = 10
 integer textsize = -8
@@ -492,9 +650,9 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type sle_json_iv from singlelineedit within w_main
-integer x = 1486
-integer y = 488
-integer width = 425
+integer x = 2130
+integer y = 524
+integer width = 585
 integer height = 84
 integer taborder = 20
 integer textsize = -8
@@ -508,8 +666,8 @@ borderstyle borderstyle = stylelowered!
 end type
 
 type st_josn_iv from statictext within w_main
-integer x = 1330
-integer y = 492
+integer x = 1915
+integer y = 528
 integer width = 142
 integer height = 64
 integer textsize = -10
@@ -521,13 +679,14 @@ string facename = "Tahoma"
 long textcolor = 33554432
 long backcolor = 553648127
 string text = "IV"
+alignment alignment = Right!
 boolean focusrectangle = false
 end type
 
 type st_json_key from statictext within w_main
-integer x = 1330
-integer y = 396
-integer width = 142
+integer x = 1957
+integer y = 416
+integer width = 155
 integer height = 64
 integer textsize = -10
 integer weight = 400
@@ -537,14 +696,15 @@ fontfamily fontfamily = swiss!
 string facename = "Tahoma"
 long textcolor = 33554432
 long backcolor = 553648127
-string text = "Key"
+string text = "Clave"
+alignment alignment = Right!
 boolean focusrectangle = false
 end type
 
 type sle_json_key from singlelineedit within w_main
-integer x = 1486
-integer y = 392
-integer width = 425
+integer x = 2130
+integer y = 412
+integer width = 585
 integer height = 84
 integer taborder = 20
 integer textsize = -8
@@ -560,7 +720,7 @@ end type
 type sle_json from singlelineedit within w_main
 integer x = 361
 integer y = 696
-integer width = 1824
+integer width = 2350
 integer height = 84
 integer taborder = 10
 integer textsize = -8
@@ -590,7 +750,7 @@ end type
 type sle_token from singlelineedit within w_main
 integer x = 361
 integer y = 812
-integer width = 1824
+integer width = 2350
 integer height = 84
 integer taborder = 20
 integer textsize = -8
@@ -618,8 +778,8 @@ boolean focusrectangle = false
 end type
 
 type cb_ecrypt_josn from commandbutton within w_main
-integer x = 827
-integer y = 916
+integer x = 1175
+integer y = 928
 integer width = 398
 integer height = 100
 integer taborder = 20
@@ -662,8 +822,8 @@ sle_token.Text = in_seg.of_encrypt(ls_json, ls_MasterKey, ls_MasterIV)
 end event
 
 type cb_decrypt_token from commandbutton within w_main
-integer x = 1243
-integer y = 916
+integer x = 1586
+integer y = 928
 integer width = 398
 integer height = 100
 integer taborder = 20
@@ -690,9 +850,9 @@ sle_json.text = '{"key":"'+ls_key+'", "IV":"'+ls_IV+'"}'
 end event
 
 type cb_vopiar from commandbutton within w_main
-integer x = 2203
+integer x = 2743
 integer y = 804
-integer width = 233
+integer width = 398
 integer height = 100
 integer taborder = 10
 integer textsize = -8
@@ -719,7 +879,7 @@ boolean focusrectangle = false
 end type
 
 type st_info from statictext within w_main
-integer x = 1234
+integer x = 1874
 integer y = 1572
 integer width = 1289
 integer height = 52
@@ -735,8 +895,8 @@ boolean focusrectangle = false
 end type
 
 type st_myversion from statictext within w_main
-integer x = 2057
-integer y = 68
+integer x = 2661
+integer y = 60
 integer width = 489
 integer height = 84
 integer textsize = -12
@@ -752,8 +912,8 @@ boolean focusrectangle = false
 end type
 
 type st_platform from statictext within w_main
-integer x = 2057
-integer y = 156
+integer x = 2661
+integer y = 148
 integer width = 489
 integer height = 84
 integer textsize = -12
@@ -769,9 +929,9 @@ boolean focusrectangle = false
 end type
 
 type gb_json from groupbox within w_main
-integer x = 1257
-integer y = 320
-integer width = 768
+integer x = 1838
+integer y = 340
+integer width = 1326
 integer height = 316
 integer taborder = 30
 integer textsize = -8
@@ -785,9 +945,9 @@ string text = "Clave y Vector para Json"
 end type
 
 type gb_master from groupbox within w_main
-integer x = 453
-integer y = 316
-integer width = 768
+integer x = 366
+integer y = 340
+integer width = 1225
 integer height = 316
 integer taborder = 10
 integer textsize = -8
@@ -805,7 +965,7 @@ long linecolor = 33554432
 linestyle linestyle = transparent!
 integer linethickness = 4
 long fillcolor = 33521664
-integer width = 2688
+integer width = 3186
 integer height = 260
 end type
 
