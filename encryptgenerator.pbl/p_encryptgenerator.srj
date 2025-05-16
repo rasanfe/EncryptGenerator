@@ -1,0 +1,16 @@
+﻿EXE:EcryptGenerator.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 25.0.0.3683
+CMP:0,0,0,3,0,0,1
+COM:RSRSYSTEM
+DES:RSRSYSTEM
+CPY:Ramón San Félix Ramón
+PRD:EncryptGenerator
+PVS:2025.1.3683.10
+PVN:2025,1,3683,10
+FVS:2025.1.3683.10
+FVN:2025,1,3683,10
+MAN:0,asInvoker,0
+PBD:encryptgenerator.pbl,,1
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\EncryptGenerator\encryptgenerator.pbl,encryptgenerator,a
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\EncryptGenerator\encryptgenerator.pbl,w_main,w
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\EncryptGenerator\encryptgenerator.pbl,n_cst_key_generator,u
+OBJ:C:\proyecto pw2025\Blog\PowerBuilder\EncryptGenerator\encryptgenerator.pbl,n_cst_security,u
